@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { transformWithEsbuild } from 'vite'
 import restart from 'vite-plugin-restart'
+import glsl from 'vite-plugin-glsl'
 
 export default defineConfig({
     root: 'src/',
@@ -12,6 +13,8 @@ export default defineConfig({
 
         // React support
         react(),
+
+        glsl(),
 
         // .js file support as if it was JSX
         {

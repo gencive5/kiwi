@@ -1,30 +1,21 @@
-import {useThree, extend, useFrame} from '@react-three/fiber'
-import {useRef} from 'react'
+// import {useThree, extend, useFrame} from '@react-three/fiber'
+// import {useRef} from 'react'
+import walk from './walk.mp4'
+import { useVideoTexture } from '@react-three/drei'
 
 
 export default function Experience ()
 {
-    const {camera, gl} = useThree()
 
+    const videoTexture = useVideoTexture('./walk.mp4')
+    console.log(videoTexture)
 
-
-    // useFrame((state, delta) => 
-    // {
-        // const angle = state.clock.elapsedTime
-        // state.camera.position.x = Math.sin(angle) * 8
-        // state.camera.position.z = Math.cos(angle) * 8
-        // state.camera.lookAt(0, 0, 0)
-
-        // cubeRef.current.rotation.y += delta
-        // groupRef.current.rotation.y += delta
-    // })
-    
     return <>
 
-    <orbitControls args={[camera, gl.domElement]} />
-
-
-   
+    <mesh>
+            <planeGeometry args={[4, 3]} />
+            <meshBasicMaterial map={videoTexture} />
+    </mesh>
 
     </>
 }
