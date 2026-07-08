@@ -7,7 +7,11 @@ import { useVideoTexture } from '@react-three/drei'
 export default function Experience ()
 {
 
-    const videoTexture = useVideoTexture('/walk.mp4')
+    const videoTexture = useVideoTexture('/walk.mp4', {
+        muted: true,
+        loop: true,   
+        playsInline: true
+    })
     console.log(videoTexture)
 
     return <>
