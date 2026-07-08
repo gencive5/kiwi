@@ -1,13 +1,13 @@
 // import {useThree, extend, useFrame} from '@react-three/fiber'
 // import {useRef} from 'react'
-import walking from './walking.mp4'
+import walking from './walktrim.mp4'
 import { useVideoTexture } from '@react-three/drei'
 
 
 export default function Experience ()
 {
 
-    const videoTexture = useVideoTexture('./walking.mp4')
+    const videoTexture = useVideoTexture('./walktrim.mp4')
     console.log(videoTexture)
 
     return <>
