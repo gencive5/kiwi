@@ -10,7 +10,7 @@ export default function Experience ()
     const videoTexture = useVideoTexture('/walk.mp4', {
         muted: true,
         loop: true,   
-        playsInline: true
+        playsInline: true,
     })
     console.log(videoTexture)
 
