@@ -1,2 +1,3 @@
 [build]
-command = "./netlify_build.sh"
+  command = "git lfs install && git lfs pull && npm run build"
+  publish = "dist"
