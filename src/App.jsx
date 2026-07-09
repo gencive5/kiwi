@@ -1,7 +1,6 @@
 import './style.css'
 import ReactDOM from 'react-dom/client'
 import { Canvas } from '@react-three/fiber'
-// import { MeshNormalMaterial } from 'three'
 import Experience from './Experience.jsx'
 
 export default function App ()
@@ -13,7 +12,7 @@ export default function App ()
             gl={ {
                 antialias: true
             }}
-            camera={{
+            orthographicCamera={{
                 fov: 45,
                 near: 0.1,
                 far: 200,
