@@ -37,7 +37,7 @@ export default function Experience ()
     <mesh ref={meshRef}>  
             <planeGeometry args={[4, 3]} />
             <meshBasicMaterial map={videoTexture} />
-            <Text> Bye Kiwi</Text>
+            {/* <Text> Bye Kiwi</Text> */}
             <Sphere><MeshTransmissionMaterial {...materialProps}/></Sphere>
             <shaderMaterial
             uniforms={{ uTexture: { value: videoTexture }, uTintColor: { value: [0.2, 0.5, 0.5] }, uTime: { value: 0 }, uFrequency: { value: new THREE.Vector2(10, 5) }}}
