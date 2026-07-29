@@ -17,8 +17,10 @@
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "9.1",
     "leva": "^0.10.1",
+    "lil-gui": "^0.21.0",
     "react": "19.0",
     "react-dom": "19.0",
-    "three": "^0.174.0"
+    "three": "^0.174.0",
+    "three-custom-shader-material": "^6.4.0"
   }
 }
