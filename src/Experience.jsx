@@ -15,7 +15,13 @@ export default function Experience() {
     // Refs
     const meshRef = useRef()
     const controlsRef = useRef()
-    const videoRef = useRef()
+    
+    // Video
+    const videoTexture = useVideoTexture('/walk.mp4', {
+        muted: false,
+        loop: true,   
+        playsInline: true,
+    })
     
     // R3F hooks
     const { scene, camera, gl, size, viewport } = useThree()
@@ -38,22 +44,18 @@ export default function Experience() {
     })
     
     // Setup video texture
+   
     useEffect(() => {
-        const videoElement = document.createElement('video')
-        videoElement.src = video
-        videoElement.loop = true
-        videoElement.muted = true
-        videoElement.play()
-        videoRef.current = videoElement
-        
-        const videoTexture = new THREE.VideoTexture(videoElement)
+    if (videoTexture) {
         scene.background = videoTexture
-        
-        return () => {
-            videoElement.pause()
-            videoElement.remove()
+    }
+     return () => {
+        if (scene.background === videoTexture) {
+            scene.background = null
         }
-    }, [scene])
+    }
+    }, [videoTexture, scene])
+      
     
     // Load environment map
     useEffect(() => {
