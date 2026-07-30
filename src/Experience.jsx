@@ -1,17 +1,15 @@
 import { useFrame, useThree, extend } from '@react-three/fiber'
 import { useRef, useEffect, useMemo } from 'react'
 import * as THREE from 'three'
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { RGBELoader } from 'three/addons/loaders/RGBELoader.js'
 import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js'
 import CustomShaderMaterial from 'three-custom-shader-material/vanilla'
-// import GUI from 'lil-gui'
 import wobbleVertexShader from './shaders/blur/vertex.glsl'
 import wobbleFragmentShader from './shaders/blur/fragment.glsl'
 import video from '/walk.mp4'
 import { useControls } from 'leva'
+import { useVideoTexture } from '@react-three/drei'
 
-extend({ OrbitControls })
 
 export default function Experience() {
     // Refs
@@ -22,8 +20,7 @@ export default function Experience() {
     // R3F hooks
     const { scene, camera, gl, size, viewport } = useThree()
     
-    // GUI instance - using useMemo to prevent recreation
-    // const gui = useMemo(() => new GUI({ width: 325 }), [])
+    // leva
 
      const materialProps = useControls('Material', {
         thickness: { value: 1.5, min: 0, max: 3, step: 0.05 },
@@ -159,13 +156,7 @@ export default function Experience() {
     
     return (
         <>
-            <orbitControls 
-                ref={controlsRef}
-                args={[camera, gl.domElement]}
-                enableDamping={true}
-                dampingFactor={0.05}
-            />
-            
+          
             <directionalLight
                 color="#ffffff"
                 intensity={3}
