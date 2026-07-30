@@ -120,7 +120,7 @@ export default function Experience() {
     
     // BLOB
     const geometry = useMemo(() => {
-        let geo = new THREE.IcosahedronGeometry(2.5, 50)
+        let geo = new THREE.IcosahedronGeometry(3, 50)
         geo = mergeVertices(geo)
         geo.computeTangents()
         return geo
