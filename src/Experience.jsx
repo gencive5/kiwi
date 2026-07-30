@@ -12,9 +12,11 @@ import { useVideoTexture } from '@react-three/drei'
 
 
 export default function Experience() {
-    // Refs
+   
     const meshRef = useRef()
     const controlsRef = useRef()
+
+    const { scene, camera, gl, size, viewport } = useThree()
     
     // Video
     const videoTexture = useVideoTexture('/walk.mp4', {
@@ -22,29 +24,7 @@ export default function Experience() {
         loop: true,   
         playsInline: true,
     })
-    
-    // R3F hooks
-    const { scene, camera, gl, size, viewport } = useThree()
-    
-    // leva
 
-     const materialProps = useControls('Material', {
-        thickness: { value: 1.5, min: 0, max: 3, step: 0.05 },
-        roughness: { value: 0.5, min: 0, max: 1, step: 0.05 },
-        transmission: { value: 0, min: 0, max: 1, step: 0.05 },
-        ior: { value: 1.5, min: 0, max: 3, step: 0.05 },
-        metalness: { value: 0, min: 0, max: 1, step: 0.05 },
-        color: { value: '#ffffff' },
-    })
-
-        const wobbleControls = useControls('Wobble', {
-        uPositionFrequency: { value: 0.5, min: 0, max: 2, step: 0.001 },
-        uTimeFrequency: { value: 0.4, min: 0, max: 2, step: 0.001 },
-        uStrength: { value: 0.3, min: 0, max: 2, step: 0.001 },
-    })
-    
-    // Setup video texture
-   
     useEffect(() => {
     if (videoTexture) {
         scene.background = videoTexture
@@ -55,9 +35,26 @@ export default function Experience() {
         }
     }
     }, [videoTexture, scene])
+    
+    
+    // leva
+     const materialProps = useControls({
+        thickness: { value: 1.5, min: 0, max: 3, step: 0.05 },
+        roughness: { value: 0.5, min: 0, max: 1, step: 0.05 },
+        transmission: { value: 0, min: 0, max: 1, step: 0.05 },
+        ior: { value: 1.5, min: 0, max: 3, step: 0.05 },
+        metalness: { value: 0, min: 0, max: 1, step: 0.05 },
+        color: { value: '#ffffff' },
+    })
+
+        const wobbleControls = useControls({
+        uPositionFrequency: { value: 0.5, min: 0, max: 2, step: 0.001 },
+        uTimeFrequency: { value: 0.4, min: 0, max: 2, step: 0.001 },
+        uStrength: { value: 0.3, min: 0, max: 2, step: 0.001 },
+    })
       
     
-    // Load environment map
+    // Environment map
     useEffect(() => {
         const rgbeLoader = new RGBELoader()
         
@@ -74,14 +71,18 @@ export default function Experience() {
         )
     }, [scene])
     
-    // Setup uniforms
+    // uniforms
     const uniforms = useMemo(() => ({
         uTime: new THREE.Uniform(0),
-        uPositionFrequency: new THREE.Uniform(0.5),
-        uTimeFrequency: new THREE.Uniform(0.4),
-        uStrength: new THREE.Uniform(0.3)
-    }), [])
-    
+        uPositionFrequency: new THREE.Uniform(wobbleControls.uPositionFrequency),
+        uTimeFrequency: new THREE.Uniform(wobbleControls.uTimeFrequency),
+        uStrength: new THREE.Uniform(wobbleControls.uStrength)
+    }), 
+    [wobbleControls.uPositionFrequency,
+    wobbleControls.uTimeFrequency,
+    wobbleControls.uStrength])
+
+
     // materials
     const material = useMemo(() => {
         return new CustomShaderMaterial({
@@ -89,18 +90,23 @@ export default function Experience() {
             vertexShader: wobbleVertexShader,
             fragmentShader: wobbleFragmentShader,
             uniforms: uniforms,
-            
-            // MeshPhysicalMaterial properties
-            metalness: 0,
-            roughness: 0.5,
-            color: '#ffffff',
-            transmission: 0,
-            ior: 1.5,
-            thickness: 1.5,
-            transparent: true,
-            wireframe: false
-        })
-    }, [uniforms])
+        
+        // MeshPhysicalMaterial properties
+        metalness: materialProps.metalness,
+        roughness: materialProps.roughness,
+        color: materialProps.color,
+        transmission: materialProps.transmission,
+        ior: materialProps.ior,
+        thickness: materialProps.thickness
+        })}, 
+    [uniforms, 
+    materialProps.metalness,
+    materialProps.roughness,
+    materialProps.color,
+    materialProps.transmission,
+    materialProps.ior,
+    materialProps.thickness])  
+
     
     const depthMaterial = useMemo(() => {
         return new CustomShaderMaterial({
@@ -111,27 +117,8 @@ export default function Experience() {
         })
     }, [uniforms])
     
-    // GUI controls
-    // useEffect(() => {
-        
-    //     gui.add(uniforms.uPositionFrequency, 'value', 0, 2, 0.001).name('uPositionFrequency')
-    //     gui.add(uniforms.uTimeFrequency, 'value', 0, 2, 0.001).name('uTimeFrequency')
-    //     gui.add(uniforms.uStrength, 'value', 0, 2, 0.001).name('uStrength')
-        
-    //     gui.add(material, 'metalness', 0, 1, 0.001)
-    //     gui.add(material, 'roughness', 0, 1, 0.001)
-    //     gui.add(material, 'transmission', 0, 1, 0.001)
-    //     gui.add(material, 'ior', 0, 10, 0.001)
-    //     gui.add(material, 'thickness', 0, 10, 0.001)
-    //     gui.addColor(material, 'color')
-        
-    //     // Cleanup GUI on unmount
-    //     return () => {
-    //         gui.destroy()
-    //     }
-    // }, [gui, uniforms, material])
     
-    // Create geometry with memoization
+    // BLOB
     const geometry = useMemo(() => {
         let geo = new THREE.IcosahedronGeometry(2.5, 50)
         geo = mergeVertices(geo)
@@ -150,7 +137,7 @@ export default function Experience() {
         }
     })
     
-    // Setup camera position
+    // camera
     useEffect(() => {
         camera.position.set(13, -3, -5)
         camera.lookAt(0, 0, 0)
@@ -176,7 +163,7 @@ export default function Experience() {
                 customDepthMaterial={depthMaterial}
                 receiveShadow
                 position={[0, 0, 0]}
-                {...materialProps}
+             
             />
 
             <ambientLight intensity={0.5} />
