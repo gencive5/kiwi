@@ -14,7 +14,6 @@ import { useVideoTexture } from '@react-three/drei'
 export default function Experience() {
    
     const meshRef = useRef()
-    const controlsRef = useRef()
 
     const { scene, camera, gl, size, viewport } = useThree()
     
@@ -130,11 +129,6 @@ export default function Experience() {
     useFrame((state, delta) => {
         // Update time
         uniforms.uTime.value = state.clock.elapsedTime
-        
-        // Update controls
-        if (controlsRef.current) {
-            controlsRef.current.update()
-        }
     })
     
     // camera
