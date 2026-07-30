@@ -19,7 +19,7 @@ export default function Experience() {
     
     // Video
     const videoTexture = useVideoTexture('/walk.mp4', {
-        muted: false,
+        muted: true,
         loop: true,   
         playsInline: true,
     })
@@ -157,7 +157,6 @@ export default function Experience() {
                 customDepthMaterial={depthMaterial}
                 receiveShadow
                 position={[0, 0, 0]}
-             
             />
 
             <ambientLight intensity={0.5} />
