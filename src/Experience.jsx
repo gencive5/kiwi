@@ -43,9 +43,16 @@ export default function Experience({ blinkTrigger }) {
         if (blinkTrigger) {
             setCurrentIor(0) 
         } else {
-            setCurrentIor(DEFAULT_IOR)
+            setTimeout(() => {setCurrentIor(DEFAULT_IOR)}, 5000)
         }
     }, [blinkTrigger])
+
+    // const [blinkAnimation] = useState(DEFAULT_IOR)
+    // useEffect(() => {
+    //     if(blinkTrigger) {
+
+    //     }
+    // })
 
     
     // uniforms
