@@ -16,25 +16,7 @@ export default function Experience({ blinkTrigger }) {
     const meshRef = useRef()
 
     const { scene, camera, gl, size, viewport } = useThree()
-    
-    // Video
-    // const videoTexture = useVideoTexture('/walk.mp4', {
-    //     muted: true,
-    //     loop: true,   
-    //     playsInline: true,
-    // })
 
-    // useEffect(() => {
-    // if (videoTexture) {
-    //     scene.background = videoTexture
-    // }
-    //  return () => {
-    //     if (scene.background === videoTexture) {
-    //         scene.background = null
-    //     }
-    // }
-    // }, [videoTexture, scene])
-    
     
     // leva
      const materialProps = useControls({
