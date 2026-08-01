@@ -11,7 +11,7 @@ import { useControls } from 'leva'
 import { useVideoTexture } from '@react-three/drei'
 
 
-export default function Experience() {
+export default function Experience({ blinkTrigger }) {
    
     const meshRef = useRef()
 
@@ -41,7 +41,7 @@ export default function Experience() {
         thickness: { value: 1.5, min: 0, max: 3, step: 0.05 },
         roughness: { value: 0.5, min: 0, max: 1, step: 0.05 },
         transmission: { value: 0, min: 0, max: 1, step: 0.05 },
-        ior: { value: 1.5, min: 0, max: 3, step: 0.05 },
+        
         metalness: { value: 0, min: 0, max: 1, step: 0.05 },
         color: { value: '#ffffff' },
     })
@@ -51,7 +51,19 @@ export default function Experience() {
         uTimeFrequency: { value: 0.4, min: 0, max: 2, step: 0.001 },
         uStrength: { value: 0.3, min: 0, max: 2, step: 0.001 },
     })
-      
+
+
+    // Blink
+        const blink = useControls({
+        ior: { value: 1.5, min: 0, max: 3, step: 0.05 },
+    })
+
+    useEffect(() => {
+    if (blinkTrigger) {
+        console.log('Blink triggered!')
+        }
+    }, [blinkTrigger])
+
     
     // Environment map
     useEffect(() => {
@@ -95,16 +107,16 @@ export default function Experience() {
         roughness: materialProps.roughness,
         color: materialProps.color,
         transmission: materialProps.transmission,
-        ior: materialProps.ior,
-        thickness: materialProps.thickness
+        thickness: materialProps.thickness,
+        ior: blink.ior
         })}, 
     [uniforms, 
     materialProps.metalness,
     materialProps.roughness,
     materialProps.color,
     materialProps.transmission,
-    materialProps.ior,
-    materialProps.thickness])  
+    materialProps.thickness,
+    blink.ior])  
 
     
     const depthMaterial = useMemo(() => {
@@ -137,29 +149,29 @@ export default function Experience() {
         camera.lookAt(0, 0, 0)
     }, [camera])
     
-    return (
-        <>
-          
-            <directionalLight
-                color="#ffffff"
-                intensity={3}
-                position={[0.25, 2, -2.25]}
-                castShadow
-                shadow-mapSize={[1024, 1024]}
-                shadow-camera-far={15}
-                shadow-normalBias={0.05}
-            />
-            
-            <mesh
-                ref={meshRef}
-                geometry={geometry}
-                material={material}
-                customDepthMaterial={depthMaterial}
-                receiveShadow
-                position={[0, 0, 0]}
-            />
+return (
+    <>
+        
+        <directionalLight
+            color="#ffffff"
+            intensity={3}
+            position={[0.25, 2, -2.25]}
+            castShadow
+            shadow-mapSize={[1024, 1024]}
+            shadow-camera-far={15}
+            shadow-normalBias={0.05}
+        />
+        
+        <mesh
+            ref={meshRef}
+            geometry={geometry}
+            material={material}
+            customDepthMaterial={depthMaterial}
+            receiveShadow
+            position={[0, 0, 0]}
+        />
 
-            <ambientLight intensity={0.5} />
-        </>
-    )
+        <ambientLight intensity={0.5} />
+    </>
+)
 }
