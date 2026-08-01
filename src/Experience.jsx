@@ -8,7 +8,7 @@ import wobbleVertexShader from './shaders/blur/vertex.glsl'
 import wobbleFragmentShader from './shaders/blur/fragment.glsl'
 import video from '/walk.mp4'
 import { useControls } from 'leva'
-import { useVideoTexture } from '@react-three/drei'
+import { useSpring, animated } from '@react-spring/three'
 
 
 export default function Experience({ blinkTrigger }) {
@@ -42,6 +42,7 @@ export default function Experience({ blinkTrigger }) {
     useEffect(() => {
         if (blinkTrigger) {
             setCurrentIor(0) 
+            
         } else {
             setTimeout(() => {setCurrentIor(DEFAULT_IOR)}, 5000)
         }
