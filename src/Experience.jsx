@@ -47,23 +47,6 @@ export default function Experience({ blinkTrigger }) {
     }, [blinkTrigger])
 
     
-    // Environment map
-    useEffect(() => {
-        const rgbeLoader = new RGBELoader()
-        
-        rgbeLoader.load(
-            './urban_alley_01_1k.hdr',
-            (environmentMap) => {
-                environmentMap.mapping = THREE.EquirectangularReflectionMapping
-                scene.environment = environmentMap
-            },
-            undefined,
-            (error) => {
-                console.error('Error loading HDR:', error)
-            }
-        )
-    }, [scene])
-    
     // uniforms
     const uniforms = useMemo(() => ({
         uTime: new THREE.Uniform(0),
