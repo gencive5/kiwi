@@ -36,24 +36,22 @@ export default function Experience({ blinkTrigger }) {
 
 
     // Blink
-    const DEFAULT_IOR = 1.5 
+    const DEFAULT_IOR = 2 
     const [currentIor, setCurrentIor] = useState(DEFAULT_IOR)
 
-    useEffect(() => {
-        if (blinkTrigger) {
-            setCurrentIor(0) 
-            
-        } else {
-            setTimeout(() => {setCurrentIor(DEFAULT_IOR)}, 5000)
-        }
-    }, [blinkTrigger])
+  
+    const { ior } = useSpring({
+        ior: blinkTrigger ? 0 : DEFAULT_IOR,
+        config: {
+            duration: 3000,
+            easing: t => t * t * (3 - 2 * t) 
+        },
+        onChange: ({ value }) => {
+            setCurrentIor(value.ior)
+        },
 
-    // const [blinkAnimation] = useState(DEFAULT_IOR)
-    // useEffect(() => {
-    //     if(blinkTrigger) {
-
-    //     }
-    // })
+        delay: blinkTrigger ? 0 : 5000 
+    })
 
     
     // uniforms
