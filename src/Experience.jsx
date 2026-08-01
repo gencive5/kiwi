@@ -1,5 +1,5 @@
 import { useFrame, useThree, extend } from '@react-three/fiber'
-import { useRef, useEffect, useMemo } from 'react'
+import { useRef, useEffect, useMemo, useState } from 'react'
 import * as THREE from 'three'
 import { RGBELoader } from 'three/addons/loaders/RGBELoader.js'
 import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js'
@@ -36,13 +36,14 @@ export default function Experience({ blinkTrigger }) {
 
 
     // Blink
-        const blink = useControls({
-        ior: { value: 1.5, min: 0, max: 3, step: 0.05 },
-    })
+    const DEFAULT_IOR = 1.5 
+    const [currentIor, setCurrentIor] = useState(DEFAULT_IOR)
 
     useEffect(() => {
-    if (blinkTrigger) {
-        console.log('Blink triggered!')
+        if (blinkTrigger) {
+            setCurrentIor(0) 
+        } else {
+            setCurrentIor(DEFAULT_IOR)
         }
     }, [blinkTrigger])
 
@@ -73,15 +74,16 @@ export default function Experience({ blinkTrigger }) {
         color: materialProps.color,
         transmission: materialProps.transmission,
         thickness: materialProps.thickness,
-        ior: blink.ior
+        ior: currentIor
         })}, 
-    [uniforms, 
-    materialProps.metalness,
-    materialProps.roughness,
-    materialProps.color,
-    materialProps.transmission,
-    materialProps.thickness,
-    blink.ior])  
+
+        [uniforms, 
+        materialProps.metalness,
+        materialProps.roughness,
+        materialProps.color,
+        materialProps.transmission,
+        materialProps.thickness,
+        currentIor])  
 
     
     const depthMaterial = useMemo(() => {
