@@ -43,8 +43,14 @@ export default function Experience({ blinkTrigger }) {
     const { ior } = useSpring({
         ior: blinkTrigger ? 0 : DEFAULT_IOR,
         config: {
-            duration: 3000,
-            easing: t => t * t * (3 - 2 * t) 
+            duration: blinkTrigger ? 1000 : 7000,
+            easing: t =>  {
+                if (blinkTrigger) { 
+                    return t * t * (3 - 2 * t) 
+                } else {
+                    return t
+                }
+            }
         },
         onChange: ({ value }) => {
             setCurrentIor(value.ior)
