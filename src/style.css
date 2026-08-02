@@ -35,3 +35,18 @@ body,
     left: 0;
     z-index: 100
 }
+
+.sound-btn {
+    background-color: cornflowerblue;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100
+}

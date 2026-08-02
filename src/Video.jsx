@@ -13,7 +13,7 @@ export default function Video() {
                  <source src="/walk.mp4" type="video/mp4" />
             </video>
 
-            <button onClick={handleToggleMute} className="control">{muted ? "Unmute" : "Mute"}</button>
+            <button onClick={handleToggleMute} className="sound-btn">{muted ? "Unmute" : "Mute"}</button>
         </div>
     )
 }

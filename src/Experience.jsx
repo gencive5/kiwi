@@ -1,7 +1,6 @@
 import { useFrame, useThree, extend } from '@react-three/fiber'
 import { useRef, useEffect, useMemo, useState } from 'react'
 import * as THREE from 'three'
-import { RGBELoader } from 'three/addons/loaders/RGBELoader.js'
 import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js'
 import CustomShaderMaterial from 'three-custom-shader-material/vanilla'
 import wobbleVertexShader from './shaders/blur/vertex.glsl'
