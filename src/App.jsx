@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import { Canvas } from '@react-three/fiber'
 import Experience from './Experience.jsx'
-import Video from './Video.jsx'
 
 export default function App ()
 {
@@ -16,7 +15,6 @@ export default function App ()
     }
 
     return <>
-    <Video/>
      <Canvas
             gl={ {
                 antialias: true

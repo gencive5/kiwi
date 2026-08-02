@@ -54,6 +54,7 @@ export default function Experience({ blinkTrigger }) {
     // Blink
     const DEFAULT_IOR = 2 
     const [currentIor, setCurrentIor] = useState(DEFAULT_IOR)
+    const [meshVisible, setMeshVisible] = useState(true)
 
   
     const { ior } = useSpring({
@@ -70,6 +71,7 @@ export default function Experience({ blinkTrigger }) {
         },
         onChange: ({ value }) => {
             setCurrentIor(value.ior)
+            setMeshVisible(newIor > 0.01)
         },
 
         delay: blinkTrigger ? 0 : 5000 
@@ -82,10 +84,10 @@ export default function Experience({ blinkTrigger }) {
         uPositionFrequency: new THREE.Uniform(wobbleControls.uPositionFrequency),
         uTimeFrequency: new THREE.Uniform(wobbleControls.uTimeFrequency),
         uStrength: new THREE.Uniform(wobbleControls.uStrength)
-    }), 
-    [wobbleControls.uPositionFrequency,
-    wobbleControls.uTimeFrequency,
-    wobbleControls.uStrength])
+        }), 
+        [wobbleControls.uPositionFrequency,
+        wobbleControls.uTimeFrequency,
+        wobbleControls.uStrength])
 
 
     // materials
@@ -101,7 +103,10 @@ export default function Experience({ blinkTrigger }) {
         transmission: materialProps.transmission,
         thickness: materialProps.thickness,
         color: materialProps.color,
-        ior: currentIor
+        ior: currentIor,
+        transparent: true,
+        opacity: meshVisible ? 1 : 0,
+        side: THREE.DoubleSide,
         })}, 
 
         [uniforms, 
@@ -162,6 +167,7 @@ return (
             customDepthMaterial={depthMaterial}
             receiveShadow
             position={[0, 0, 0]}
+            visible={meshVisible}
         />
 
         <ambientLight intensity={0.5} />
