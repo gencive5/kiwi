@@ -9,6 +9,7 @@ import wobbleFragmentShader from './shaders/blur/fragment.glsl'
 import video from '/walk.mp4'
 import { useControls } from 'leva'
 import { useSpring, animated } from '@react-spring/three'
+import { useVideoTexture} from '@react-three/drei'
 
 
 export default function Experience({ blinkTrigger }) {
@@ -17,14 +18,30 @@ export default function Experience({ blinkTrigger }) {
 
     const { scene, camera, gl, size, viewport } = useThree()
 
+    // video
+    const videoTexture = useVideoTexture('/walk.mp4', {
+        muted: true,
+        loop: true,   
+        playsInline: true,
+    })
+
+    useEffect(() => {
+    if (videoTexture) {
+        scene.background = videoTexture
+    }
+     return () => {
+        if (scene.background === videoTexture) {
+            scene.background = null
+        }
+    }
+    }, [videoTexture, scene])
+
     
     // leva
      const materialProps = useControls({
         thickness: { value: 1.5, min: 0, max: 3, step: 0.05 },
         roughness: { value: 0.5, min: 0, max: 1, step: 0.05 },
         transmission: { value: 0, min: 0, max: 1, step: 0.05 },
-        
-        metalness: { value: 0, min: 0, max: 1, step: 0.05 },
         color: { value: '#ffffff' },
     })
 
@@ -81,20 +98,18 @@ export default function Experience({ blinkTrigger }) {
             uniforms: uniforms,
         
         // MeshPhysicalMaterial properties
-        metalness: materialProps.metalness,
         roughness: materialProps.roughness,
-        color: materialProps.color,
         transmission: materialProps.transmission,
         thickness: materialProps.thickness,
+        color: materialProps.color,
         ior: currentIor
         })}, 
 
         [uniforms, 
-        materialProps.metalness,
         materialProps.roughness,
-        materialProps.color,
         materialProps.transmission,
         materialProps.thickness,
+        materialProps.color,
         currentIor])  
 
     
@@ -110,7 +125,7 @@ export default function Experience({ blinkTrigger }) {
     
     // BLOB
     const geometry = useMemo(() => {
-        let geo = new THREE.IcosahedronGeometry(3, 50)
+        let geo = new THREE.IcosahedronGeometry(4, 50)
         geo = mergeVertices(geo)
         geo.computeTangents()
         return geo
@@ -130,7 +145,7 @@ export default function Experience({ blinkTrigger }) {
     
 return (
     <>
-        
+{/*         
         <directionalLight
             color="#ffffff"
             intensity={3}
@@ -139,7 +154,7 @@ return (
             shadow-mapSize={[1024, 1024]}
             shadow-camera-far={15}
             shadow-normalBias={0.05}
-        />
+        /> */}
         
         <mesh
             ref={meshRef}
