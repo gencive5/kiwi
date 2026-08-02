@@ -14,6 +14,9 @@ export default function App ()
         setTimeout(() => setBlinkTrigger(false), 100)
     }
 
+    const [muted, setMuted] = useState(true);
+    const handleToggleMute = () => setMuted(current => !current);
+
     return <>
      <Canvas
             gl={ {
@@ -21,8 +24,9 @@ export default function App ()
             }}
              style={{ position: 'relative', zIndex: 1 }} 
         >
-            <Experience blinkTrigger={blinkTrigger} />
-        </Canvas>
+        <Experience blinkTrigger={blinkTrigger} muted={muted} />
+    </Canvas>
     <button className= "blink-btn" onClick={handleBlink}>Blink</button>
+    <button onClick={handleToggleMute} className="sound-btn">{muted ? "Unmute" : "Mute"}</button>
     </>
 }

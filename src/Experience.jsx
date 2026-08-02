@@ -11,7 +11,7 @@ import { useSpring, animated } from '@react-spring/three'
 import { useVideoTexture} from '@react-three/drei'
 
 
-export default function Experience({ blinkTrigger }) {
+export default function Experience({ blinkTrigger, muted }) {
    
     const meshRef = useRef()
 
@@ -19,7 +19,7 @@ export default function Experience({ blinkTrigger }) {
 
     // video
     const videoTexture = useVideoTexture('/walk.mp4', {
-        muted: true,
+        muted: muted,
         loop: true,   
         playsInline: true,
     })
@@ -34,6 +34,15 @@ export default function Experience({ blinkTrigger }) {
         }
     }
     }, [videoTexture, scene])
+
+    useEffect(() => {
+        if (videoTexture) {
+            const video = videoTexture.image
+            if (video) {
+                video.muted = muted
+            }
+        }
+    }, [muted])
 
     
     // leva
