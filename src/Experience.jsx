@@ -138,7 +138,7 @@ export default function Experience({ blinkTrigger, muted }) {
     
     // BLOB
     const geometry = useMemo(() => {
-        let geo = new THREE.IcosahedronGeometry(4, 50)
+        let geo = new THREE.IcosahedronGeometry(15, 50)
         geo = mergeVertices(geo)
         geo.computeTangents()
         return geo
