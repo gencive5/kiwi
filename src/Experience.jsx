@@ -49,7 +49,7 @@ export default function Experience({ blinkTrigger, muted }) {
      const materialProps = useControls({
         thickness: { value: 1.5, min: 0, max: 3, step: 0.05 },
         roughness: { value: 0.5, min: 0, max: 1, step: 0.05 },
-        transmission: { value: 0, min: 0, max: 1, step: 0.05 },
+        // transmission: { value: 0, min: 0, max: 1, step: 0.05 },
         color: { value: '#ffffff' },
     })
 
@@ -58,6 +58,8 @@ export default function Experience({ blinkTrigger, muted }) {
         uTimeFrequency: { value: 0.4, min: 0, max: 2, step: 0.001 },
         uStrength: { value: 0.3, min: 0, max: 2, step: 0.001 },
     })
+    // Material parameters
+    const DEFAULT_TRANSMISSION = 0.95
 
 
     // Blink
@@ -109,7 +111,7 @@ export default function Experience({ blinkTrigger, muted }) {
         
         // MeshPhysicalMaterial properties
         roughness: materialProps.roughness,
-        transmission: materialProps.transmission,
+        transmission: DEFAULT_TRANSMISSION,
         thickness: materialProps.thickness,
         color: materialProps.color,
         ior: currentIor,
@@ -120,7 +122,7 @@ export default function Experience({ blinkTrigger, muted }) {
 
         [uniforms, 
         materialProps.roughness,
-        materialProps.transmission,
+        DEFAULT_TRANSMISSION,
         materialProps.thickness,
         materialProps.color,
         currentIor])  
@@ -138,7 +140,7 @@ export default function Experience({ blinkTrigger, muted }) {
     
     // BLOB
     const geometry = useMemo(() => {
-        let geo = new THREE.IcosahedronGeometry(15, 50)
+        let geo = new THREE.IcosahedronGeometry(6, 50)
         geo = mergeVertices(geo)
         geo.computeTangents()
         return geo
