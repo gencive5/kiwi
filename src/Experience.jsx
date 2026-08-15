@@ -46,12 +46,12 @@ export default function Experience({ blinkTrigger, muted }) {
 
     
     // leva
-     const materialProps = useControls({
-        thickness: { value: 1.5, min: 0, max: 3, step: 0.05 },
-        roughness: { value: 0.5, min: 0, max: 1, step: 0.05 },
+    //  const materialProps = useControls({
+        // thickness: { value: 1.5, min: 0, max: 3, step: 0.05 },
+        // roughness: { value: 0.5, min: 0, max: 1, step: 0.05 },
         // transmission: { value: 0, min: 0, max: 1, step: 0.05 },
-        color: { value: '#ffffff' },
-    })
+        // color: { value: '#ffffff' },
+    // })
 
         const wobbleControls = useControls({
         uPositionFrequency: { value: 0.5, min: 0, max: 2, step: 0.001 },
@@ -60,6 +60,9 @@ export default function Experience({ blinkTrigger, muted }) {
     })
     // Material parameters
     const DEFAULT_TRANSMISSION = 0.95
+    const DEFAULT_THICKNESS = 0.65
+    const DEFAULT_ROUGHNESS = 0.10
+    const DEFAULT_COLOR = '#ffffff'
 
 
     // Blink
@@ -110,10 +113,10 @@ export default function Experience({ blinkTrigger, muted }) {
             uniforms: uniforms,
         
         // MeshPhysicalMaterial properties
-        roughness: materialProps.roughness,
+        roughness: DEFAULT_ROUGHNESS,
         transmission: DEFAULT_TRANSMISSION,
-        thickness: materialProps.thickness,
-        color: materialProps.color,
+        thickness: DEFAULT_THICKNESS,
+        color: DEFAULT_COLOR,
         ior: currentIor,
         transparent: true,
         opacity: meshVisible ? 1 : 0,
@@ -121,10 +124,10 @@ export default function Experience({ blinkTrigger, muted }) {
         })}, 
 
         [uniforms, 
-        materialProps.roughness,
+        DEFAULT_ROUGHNESS,
         DEFAULT_TRANSMISSION,
-        materialProps.thickness,
-        materialProps.color,
+        DEFAULT_THICKNESS,
+        DEFAULT_COLOR,
         currentIor])  
 
     
@@ -140,7 +143,7 @@ export default function Experience({ blinkTrigger, muted }) {
     
     // BLOB
     const geometry = useMemo(() => {
-        let geo = new THREE.IcosahedronGeometry(6, 50)
+        let geo = new THREE.IcosahedronGeometry(5, 50)
         geo = mergeVertices(geo)
         geo.computeTangents()
         return geo
