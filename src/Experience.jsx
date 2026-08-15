@@ -6,7 +6,6 @@ import CustomShaderMaterial from 'three-custom-shader-material/vanilla'
 import wobbleVertexShader from './shaders/blur/vertex.glsl'
 import wobbleFragmentShader from './shaders/blur/fragment.glsl'
 import video from '/walk.mp4'
-import { useControls } from 'leva'
 import { useSpring, animated } from '@react-spring/three'
 import { useVideoTexture} from '@react-three/drei'
 
@@ -44,25 +43,16 @@ export default function Experience({ blinkTrigger, muted }) {
         }
     }, [muted])
 
-    
-    // leva
-    //  const materialProps = useControls({
-        // thickness: { value: 1.5, min: 0, max: 3, step: 0.05 },
-        // roughness: { value: 0.5, min: 0, max: 1, step: 0.05 },
-        // transmission: { value: 0, min: 0, max: 1, step: 0.05 },
-        // color: { value: '#ffffff' },
-    // })
 
-        const wobbleControls = useControls({
-        uPositionFrequency: { value: 0.5, min: 0, max: 2, step: 0.001 },
-        uTimeFrequency: { value: 0.4, min: 0, max: 2, step: 0.001 },
-        uStrength: { value: 0.3, min: 0, max: 2, step: 0.001 },
-    })
     // Material parameters
     const DEFAULT_TRANSMISSION = 0.95
     const DEFAULT_THICKNESS = 0.65
     const DEFAULT_ROUGHNESS = 0.10
     const DEFAULT_COLOR = '#ffffff'
+
+    const POSITION_FREQUENCY = 0.50
+    const UTIME_FREQUENCY = 0.46
+    const USTRENGTH = 0.30
 
 
     // Blink
@@ -95,13 +85,11 @@ export default function Experience({ blinkTrigger, muted }) {
     // uniforms
     const uniforms = useMemo(() => ({
         uTime: new THREE.Uniform(0),
-        uPositionFrequency: new THREE.Uniform(wobbleControls.uPositionFrequency),
-        uTimeFrequency: new THREE.Uniform(wobbleControls.uTimeFrequency),
-        uStrength: new THREE.Uniform(wobbleControls.uStrength)
+        uPositionFrequency: new THREE.Uniform(POSITION_FREQUENCY),
+        uTimeFrequency: new THREE.Uniform(UTIME_FREQUENCY),
+        uStrength: new THREE.Uniform(USTRENGTH)
         }), 
-        [wobbleControls.uPositionFrequency,
-        wobbleControls.uTimeFrequency,
-        wobbleControls.uStrength])
+        [])
 
 
     // materials
