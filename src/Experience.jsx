@@ -131,7 +131,7 @@ export default function Experience({ blinkTrigger, muted }) {
     
     // BLOB
     const geometry = useMemo(() => {
-        let geo = new THREE.IcosahedronGeometry(5, 50)
+        let geo = new THREE.IcosahedronGeometry(10, 50)
         geo = mergeVertices(geo)
         geo.computeTangents()
         return geo
@@ -151,16 +151,6 @@ export default function Experience({ blinkTrigger, muted }) {
     
 return (
     <>
-{/*         
-        <directionalLight
-            color="#ffffff"
-            intensity={3}
-            position={[0.25, 2, -2.25]}
-            castShadow
-            shadow-mapSize={[1024, 1024]}
-            shadow-camera-far={15}
-            shadow-normalBias={0.05}
-        /> */}
         
         <mesh
             ref={meshRef}
@@ -168,7 +158,8 @@ return (
             material={material}
             customDepthMaterial={depthMaterial}
             receiveShadow
-            position={[0, 0, 0]}
+            position={[0, 8, 0]}
+            scale={[2.7, 1, 0.7]}
             visible={meshVisible}
         />
 
