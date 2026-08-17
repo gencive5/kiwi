@@ -7,7 +7,7 @@ import wobbleVertexShader from './shaders/blur/vertex.glsl'
 import wobbleFragmentShader from './shaders/blur/fragment.glsl'
 import video from '/walk.mp4'
 import { useSpring, animated } from '@react-spring/three'
-import { useVideoTexture} from '@react-three/drei'
+import { useVideoTexture, Environment} from '@react-three/drei'
 import { RGBELoader } from 'three/addons/loaders/RGBELoader.js'
 
 
@@ -45,16 +45,6 @@ export default function Experience({ blinkTrigger, muted }) {
             }
         }
     }, [muted])
-
-    // Environment map
-    
-    rgbeLoader.load('./noon_grass_2k.hdr', (environmentMap) =>
-    {
-        environmentMap.mapping = THREE.EquirectangularReflectionMapping
-    
-        scene.environment = environmentMap
-        scene.environmentIntensity = 0.4
-    })
 
 
     // Material parameters
@@ -179,7 +169,14 @@ return (
             visible={meshVisible}
         />
 
-        <ambientLight intensity={0.1} />
+        {/* <ambientLight intensity={0.1} /> */}
+
+        <Environment 
+        files="./lilienstein_1k.hdr"
+        background={false}
+        blur={88} 
+        intensity={0.1}
+        />
     </>
 )
 }
