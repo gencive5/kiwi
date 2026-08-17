@@ -52,15 +52,15 @@ export default function Experience({ blinkTrigger, muted }) {
     {
         environmentMap.mapping = THREE.EquirectangularReflectionMapping
     
-        // scene.background = environmentMap
         scene.environment = environmentMap
+        scene.environmentIntensity = 0.4
     })
 
 
     // Material parameters
     const DEFAULT_TRANSMISSION = 1.0
-    const DEFAULT_THICKNESS = 0.65
-    const DEFAULT_ROUGHNESS = 0.109
+    const DEFAULT_THICKNESS = 0.95
+    const DEFAULT_ROUGHNESS = 0.19
     const DEFAULT_COLOR = '#ffffff'
 
     const POSITION_FREQUENCY = 0.50
@@ -124,6 +124,7 @@ export default function Experience({ blinkTrigger, muted }) {
         transparent: true,
         opacity: meshVisible ? 1 : 0,
         side: THREE.DoubleSide,
+        metalness: 0.0, 
         })}, 
 
         [uniforms, 
@@ -174,7 +175,7 @@ return (
             customDepthMaterial={depthMaterial}
             receiveShadow
             position={[0, 8, 0]}
-            scale={[2.7, 1, 1.2]}
+            scale={[2.7, 1, 1.4]}
             visible={meshVisible}
         />
 
