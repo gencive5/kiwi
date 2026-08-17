@@ -8,6 +8,7 @@ import wobbleFragmentShader from './shaders/blur/fragment.glsl'
 import video from '/walk.mp4'
 import { useSpring, animated } from '@react-spring/three'
 import { useVideoTexture} from '@react-three/drei'
+import { RGBELoader } from 'three/addons/loaders/RGBELoader.js'
 
 
 export default function Experience({ blinkTrigger, muted }) {
@@ -15,6 +16,8 @@ export default function Experience({ blinkTrigger, muted }) {
     const meshRef = useRef()
 
     const { scene, camera, gl, size, viewport } = useThree()
+
+    const rgbeLoader = new RGBELoader()
 
     // video
     const videoTexture = useVideoTexture('/walk.mp4', {
@@ -42,6 +45,16 @@ export default function Experience({ blinkTrigger, muted }) {
             }
         }
     }, [muted])
+
+    // Environment map
+    
+    rgbeLoader.load('./noon_grass_2k.hdr', (environmentMap) =>
+    {
+        environmentMap.mapping = THREE.EquirectangularReflectionMapping
+    
+        // scene.background = environmentMap
+        scene.environment = environmentMap
+    })
 
 
     // Material parameters
@@ -139,7 +152,7 @@ export default function Experience({ blinkTrigger, muted }) {
         geo.computeTangents()
         return geo
     }, [])
-    
+
     // Animation
     useFrame((state, delta) => {
         // Update time
@@ -153,8 +166,7 @@ export default function Experience({ blinkTrigger, muted }) {
     }, [camera])
     
 return (
-    <>
-        
+    <> 
         <mesh
             ref={meshRef}
             geometry={geometry}
@@ -166,7 +178,7 @@ return (
             visible={meshVisible}
         />
 
-        <ambientLight intensity={0.5} />
+        <ambientLight intensity={0.1} />
     </>
 )
 }
