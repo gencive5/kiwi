@@ -45,14 +45,15 @@ export default function Experience({ blinkTrigger, muted }) {
 
 
     // Material parameters
-    const DEFAULT_TRANSMISSION = 0.95
+    const DEFAULT_TRANSMISSION = 1.0
     const DEFAULT_THICKNESS = 0.65
-    const DEFAULT_ROUGHNESS = 0.10
+    const DEFAULT_ROUGHNESS = 0.109
     const DEFAULT_COLOR = '#ffffff'
 
     const POSITION_FREQUENCY = 0.50
     const UTIME_FREQUENCY = 0.46
     const USTRENGTH = 0.30
+    const CHROMATIC_ABERRATION = 0.10
 
 
     // Blink
@@ -106,6 +107,7 @@ export default function Experience({ blinkTrigger, muted }) {
         thickness: DEFAULT_THICKNESS,
         color: DEFAULT_COLOR,
         ior: currentIor,
+        chromaticAberration: CHROMATIC_ABERRATION,
         transparent: true,
         opacity: meshVisible ? 1 : 0,
         side: THREE.DoubleSide,
@@ -116,6 +118,7 @@ export default function Experience({ blinkTrigger, muted }) {
         DEFAULT_TRANSMISSION,
         DEFAULT_THICKNESS,
         DEFAULT_COLOR,
+        CHROMATIC_ABERRATION,
         currentIor])  
 
     
@@ -159,7 +162,7 @@ return (
             customDepthMaterial={depthMaterial}
             receiveShadow
             position={[0, 8, 0]}
-            scale={[2.7, 1, 0.7]}
+            scale={[2.7, 1, 1.2]}
             visible={meshVisible}
         />
 
