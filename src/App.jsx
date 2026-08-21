@@ -1,6 +1,5 @@
 import './style.css'
-import React, { useState } from 'react'
-import ReactDOM from 'react-dom/client'
+import { useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import Experience from './Experience.jsx'
 
