@@ -1,4 +1,4 @@
-import { useFrame, useThree, extend } from '@react-three/fiber'
+import { useFrame, useThree } from '@react-three/fiber'
 import { useRef, useEffect, useMemo, useState } from 'react'
 import * as THREE from 'three'
 import CustomShaderMaterial from 'three-custom-shader-material/vanilla'
@@ -20,6 +20,7 @@ export default function Experience({ blinkTrigger, muted }) {
         muted: muted,
         loop: true,   
         playsInline: true,
+        crossOrigin: 'anonymous',
     })
 
     useEffect(() => {
