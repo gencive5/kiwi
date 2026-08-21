@@ -1,8 +1,8 @@
 import { useFrame, useThree, extend } from '@react-three/fiber'
 import { useRef, useEffect, useMemo, useState } from 'react'
 import * as THREE from 'three'
-import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js'
 import CustomShaderMaterial from 'three-custom-shader-material/vanilla'
+import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js'
 import wobbleVertexShader from './shaders/blur/vertex.glsl'
 import wobbleFragmentShader from './shaders/blur/fragment.glsl'
 import { useSpring } from '@react-spring/three'
@@ -61,7 +61,7 @@ export default function Experience({ blinkTrigger, muted }) {
     const [meshVisible, setMeshVisible] = useState(true)
 
   
-    const { ior } = useSpring({
+    useSpring({
         ior: blinkTrigger ? 0 : DEFAULT_IOR,
         config: {
             duration: blinkTrigger ? 1000 : 7000,
@@ -141,7 +141,7 @@ export default function Experience({ blinkTrigger, muted }) {
     }, [])
 
     // Animation
-    useFrame((state, delta) => {
+    useFrame((state) => {
         // Update time
         uniforms.uTime.value = state.clock.elapsedTime
     })
@@ -164,8 +164,6 @@ return (
             scale={[2.7, 1, 1.4]}
             visible={meshVisible}
         />
-
-        {/* <ambientLight intensity={0.1} /> */}
 
         <Environment 
         files="./lilienstein_1k.hdr"
