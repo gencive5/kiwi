@@ -2,6 +2,7 @@ uniform float uTime;
 uniform float uPositionFrequency;
 uniform float uTimeFrequency;
 uniform float uStrength;
+uniform float uChromaticAberration;
 
 attribute vec4 tangent;
 

@@ -87,7 +87,8 @@ export default function Experience({ blinkTrigger, muted }) {
         uTime: new THREE.Uniform(0),
         uPositionFrequency: new THREE.Uniform(POSITION_FREQUENCY),
         uTimeFrequency: new THREE.Uniform(UTIME_FREQUENCY),
-        uStrength: new THREE.Uniform(USTRENGTH)
+        uStrength: new THREE.Uniform(USTRENGTH),
+        uChromaticAberration: new THREE.Uniform(CHROMATIC_ABERRATION) 
         }), 
         [])
 
@@ -106,7 +107,6 @@ export default function Experience({ blinkTrigger, muted }) {
         thickness: DEFAULT_THICKNESS,
         color: DEFAULT_COLOR,
         ior: currentIor,
-        chromaticAberration: CHROMATIC_ABERRATION,
         transparent: true,
         opacity: meshVisible ? 1 : 0,
         side: THREE.DoubleSide,
