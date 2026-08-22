@@ -25,7 +25,7 @@ export default function App ()
         >
         <Experience blinkTrigger={blinkTrigger} muted={muted} />
     </Canvas>
-    <button className= "blink-btn" onClick={handleBlink}>Blink</button>
+    <div className= "blink-div"><button className= "blink-btn" onClick={handleBlink}>Blink</button></div>
     <button onClick={handleToggleMute} className="sound-btn">{muted ? "Unmute" : "Mute"}</button>
     </>
 }

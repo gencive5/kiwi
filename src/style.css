@@ -25,15 +25,22 @@ body,
     background-color: coral;
     border: none;
     color: white;
-    padding: 15px 32px;
+    padding: 2rem;
     text-align: center;
     text-decoration: none;
     font-size: 16px;
     cursor: pointer;
+    width: 20%;
+    z-index: 100;
     position: absolute;
     bottom: 0;
-    left: 0;
-    z-index: 100
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.blink-div {
+    position: relative;
+    bottom: 10rem;
 }
 
 .sound-btn {
