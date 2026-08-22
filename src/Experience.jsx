@@ -7,7 +7,7 @@ import wobbleVertexShader from './shaders/blur/vertex.glsl'
 import wobbleFragmentShader from './shaders/blur/fragment.glsl'
 import { useSpring } from '@react-spring/three'
 import { useVideoTexture, Environment} from '@react-three/drei'
-import { Suspense } from 'react';
+import { Suspense } from 'react'
 import { useIsMobile } from './IsMobile.jsx'
 
 
