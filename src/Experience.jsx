@@ -166,7 +166,7 @@ return (
             geometry={geometry}
             material={material}
             customDepthMaterial={depthMaterial}
-            receiveShadow
+            receiveShadow={false}
             position={[0, 8, 0]}
             scale={[2.7, 1, 1.4]}
             visible={meshVisible}
