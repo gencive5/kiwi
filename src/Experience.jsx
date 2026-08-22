@@ -7,6 +7,7 @@ import wobbleVertexShader from './shaders/blur/vertex.glsl'
 import wobbleFragmentShader from './shaders/blur/fragment.glsl'
 import { useSpring } from '@react-spring/three'
 import { useVideoTexture, Environment} from '@react-three/drei'
+import { Suspense } from 'react';
 
 
 export default function Experience({ blinkTrigger, muted }) {
@@ -165,13 +166,14 @@ return (
             scale={[2.7, 1, 1.4]}
             visible={meshVisible}
         />
-
+        <Suspense fallback={null}>
         <Environment 
         files="./lilienstein_1k.hdr"
         background={false}
         blur={88} 
         intensity={0.1}
         />
+        </Suspense>
     </>
 )
 }
