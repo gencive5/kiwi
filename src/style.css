@@ -22,7 +22,7 @@ body,
 }
 
 .blink-btn {
-    background-color: coral;
+    background-color: rgba(255, 127, 80, 0.7);
     border: none;
     color: white;
     padding: 2rem;
