@@ -8,6 +8,7 @@ import wobbleFragmentShader from './shaders/blur/fragment.glsl'
 import { useSpring } from '@react-spring/three'
 import { useVideoTexture, Environment} from '@react-three/drei'
 import { Suspense } from 'react';
+import { useIsMobile } from './IsMobile.jsx'
 
 
 export default function Experience({ blinkTrigger, muted }) {
@@ -15,6 +16,9 @@ export default function Experience({ blinkTrigger, muted }) {
     const meshRef = useRef()
 
     const { scene, camera } = useThree()
+
+    // mobile detection
+    const isMobile = useIsMobile()
 
     // video
     const videoTexture = useVideoTexture('/walk.mp4', {
@@ -136,7 +140,8 @@ export default function Experience({ blinkTrigger, muted }) {
     
     // BLOB
     const geometry = useMemo(() => {
-        let geo = new THREE.IcosahedronGeometry(10, 50)
+        const subdivisions = isMobile ? 20 : 50;
+        let geo = new THREE.IcosahedronGeometry(10, subdivisions);
         geo = mergeVertices(geo)
         geo.computeTangents()
         return geo
