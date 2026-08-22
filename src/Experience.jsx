@@ -26,7 +26,21 @@ export default function Experience({ blinkTrigger, muted }) {
         loop: true,   
         playsInline: true,
         crossOrigin: 'anonymous',
+        start: false,
     })
+
+    // preload video
+    useEffect(() => {
+    if (videoTexture) {
+        const video = videoTexture.image
+        if (video) {
+            video.load()
+            video.addEventListener('loadeddata', () => {
+                video.play()
+            })
+        }
+    }
+    }, [videoTexture])
 
     useEffect(() => {
     if (videoTexture) {
