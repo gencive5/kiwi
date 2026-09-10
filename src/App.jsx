@@ -2,7 +2,7 @@ import './style.css'
 import { useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import Experience from './Experience.jsx'
-import blinkButton from './assets/blink.svg'
+import blinkButton from './assets/blinkline.svg'
 import soundButton from './assets/unmute.svg'
 
 export default function App ()
