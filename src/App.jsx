@@ -31,12 +31,12 @@ export default function App ()
     <div className= "blink-div">
         <button className= "blink-btn" onClick={handleBlink}>
             <img src={blinkButton} alt="Blink" className='blink-svg'/>
-             <span className="blink-text">Blink</span>
+             <span className="blink-text">blink</span>
         </button>
      </div>
      
     <button onClick={handleToggleMute} className="sound-btn">
-        {muted ? "Unmute" : "Mute"}
+        {muted ? "unmute" : "mute"}
         <img src={soundButton} alt="Sound" className='sound-svg'/>
     </button>
    
