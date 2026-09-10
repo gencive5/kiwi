@@ -27,7 +27,18 @@ export default function App ()
         >
         <Experience blinkTrigger={blinkTrigger} muted={muted} />
     </Canvas>
-    <div className= "blink-div"><button className= "blink-btn" onClick={handleBlink}><img src={blinkButton} alt="Blink" className='blink-svg' />Blink</button></div>
-    <button onClick={handleToggleMute} className="sound-btn">{muted ? "Unmute" : "Mute"}<img src={soundButton} alt="Sound" className='sound-svg'/></button>
+
+    <div className= "blink-div">
+        <button className= "blink-btn" onClick={handleBlink}>
+            <img src={blinkButton} alt="Blink" className='blink-svg'/>
+             <span className="blink-text">Blink</span>
+        </button>
+     </div>
+     
+    <button onClick={handleToggleMute} className="sound-btn">
+        {muted ? "Unmute" : "Mute"}
+        <img src={soundButton} alt="Sound" className='sound-svg'/>
+    </button>
+   
     </>
 }
