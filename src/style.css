@@ -53,11 +53,11 @@ body,
 
 .blink-div {
     position: relative;
-    bottom: 10rem;
+    bottom: 7rem;
 }
 
 .sound-btn {
-    background-color: cornflowerblue;
+    background-color: transparent;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -68,5 +68,15 @@ body,
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 200
+    z-index: 200;
+}
+
+.sound-svg{
+    cursor: pointer;
+    width: 60%;
+    z-index: 88;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
 }
