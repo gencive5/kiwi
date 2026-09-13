@@ -58,6 +58,11 @@ body,
     transition: transform 0.4s ease 0.8s;
 }
 
+.blink-svg:hover {
+   transform: scale(1.0, 0.92);
+   transition: transform 0.2s ease 0s; 
+}
+
 .blink-svg:active {
    transform: scale(1.0, 0.4);
    transition: transform 0.2s ease 0s; 
