@@ -160,9 +160,7 @@ export default function Experience({ blinkTrigger, muted }) {
         geo = mergeVertices(geo)
         geo.computeTangents()
         return geo
-    }, [isMobile])
-
-    useEffect(() => () => geometry.dispose(), [geometry])
+    }, [])
 
     // Animation
     useFrame((state) => {
