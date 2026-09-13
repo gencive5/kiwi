@@ -43,6 +43,12 @@ body,
     justify-content: center;
 }
 
+@media screen and (max-width: 900px){
+.blink-btn {
+    width: 40%;
+}
+}
+
 .blink-svg{
     cursor: pointer;
     z-index: 88;
@@ -96,8 +102,10 @@ body,
     bottom: 0;
     left: 50%;
     transform: translate(-50%, 0);
+    transition: transform 0.2s ease 0s;
 }
 
-.sound-svg:active {
- transform: skew(30deg, 20deg); 
+.sound-svg.unmuted {
+  transform: translate(-50%, 0) skew(30deg, 20deg);
+  transition: transform 0.1s ease 0s;  
 }

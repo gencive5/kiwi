@@ -37,8 +37,8 @@ export default function App ()
      
     <button onClick={handleToggleMute} className="sound-btn">
         {muted ? "unmute" : "mute"}
-        <img src={soundButton} alt="Sound" className='sound-svg'/>
+        <img src={soundButton} alt="Sound" className={`sound-svg ${muted ? '' : 'unmuted'}`}/>
     </button>
-   
+
     </>
 }
