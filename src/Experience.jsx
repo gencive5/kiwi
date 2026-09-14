@@ -71,7 +71,7 @@ export default function Experience({ blinkTrigger, muted }) {
 
     const POSITION_FREQUENCY = 0.50
     const UTIME_FREQUENCY = 0.46
-    const USTRENGTH = 0.30
+    const USTRENGTH = 0.40
     const CHROMATIC_ABERRATION = 0.10
 
 
@@ -188,10 +188,8 @@ return (
         />
         <Suspense fallback={null}>
         <Environment 
-        files="./lilienstein_1k.hdr"
-        background={false}
-        blur={88} 
-        intensity={0.1}
+            files="./lilienstein_1k.hdr"
+            background={false}
         />
         </Suspense>
     </>
