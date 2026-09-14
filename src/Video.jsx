@@ -11,7 +11,7 @@ export default function Video() {
     return(
         <div>
             <video loop autoPlay muted={muted} playsInline id="bg-video">
-                 <source src="/walk.mp4" type="video/mp4" />
+                 <source src="/walkkk.mp4" type="video/mp4" />
             </video>
 
             <button onClick={handleToggleMute} className="sound-btn">{muted ? "Unmute" : "Mute"}</button>

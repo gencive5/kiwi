@@ -21,7 +21,7 @@ export default function Experience({ blinkTrigger, muted }) {
     const isMobile = useIsMobile()
 
     // video
-    const videoTexture = useVideoTexture('/walk.mp4', {
+    const videoTexture = useVideoTexture('/walkkk.mp4', {
         muted: muted,
         loop: true,   
         playsInline: true,

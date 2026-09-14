@@ -5,7 +5,7 @@ import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js'
 import CustomShaderMaterial from 'three-custom-shader-material/vanilla'
 import wobbleVertexShader from './shaders/blur/vertex.glsl'
 import wobbleFragmentShader from './shaders/blur/fragment.glsl'
-import video from '/walk.mp4'
+import video from '/walkkk.mp4'
 import { useSpring, animated } from '@react-spring/three'
 import { useVideoTexture} from '@react-three/drei'
 
@@ -17,7 +17,7 @@ export default function Experience({ blinkTrigger, muted }) {
     const { scene, camera, gl, size, viewport } = useThree()
 
     // video
-    const videoTexture = useVideoTexture('/walk.mp4', {
+    const videoTexture = useVideoTexture('/walkkk.mp4', {
         muted: muted,
         loop: true,   
         playsInline: true,
