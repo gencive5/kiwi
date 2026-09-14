@@ -154,7 +154,7 @@ export default function Experience({ blinkTrigger, muted }) {
     
     // BLOB
     const geometry = useMemo(() => {
-        const subdivisions = isMobile ? 20 : 50;
+        const subdivisions = isMobile ? 10 : 50;
         const size = isMobile ? 7 : 10;
         let geo = new THREE.IcosahedronGeometry(size, subdivisions);
         geo = mergeVertices(geo)

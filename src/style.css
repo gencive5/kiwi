@@ -59,7 +59,7 @@ body,
 }
 
 .blink-svg:hover {
-   transform: scale(1.0, 0.92);
+   transform: scale(1.0, 0.94);
    transition: transform 0.2s ease 0s; 
 }
 
