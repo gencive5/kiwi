@@ -15,7 +15,7 @@ export default function Experience({ blinkTrigger, muted }) {
    
     const meshRef = useRef()
 
-    const { scene, camera } = useThree()
+    const { scene } = useThree()
 
     // mobile detection
     const isMobile = useIsMobile()
@@ -78,7 +78,7 @@ export default function Experience({ blinkTrigger, muted }) {
     // Blink
     const DEFAULT_IOR = 2 
     const [currentIor, setCurrentIor] = useState(DEFAULT_IOR)
-    const [meshVisible, setMeshVisible] = useState(true)
+    const [meshVisible] = useState(true)
 
   
     useSpring({
@@ -95,7 +95,6 @@ export default function Experience({ blinkTrigger, muted }) {
         },
         onChange: ({ value }) => {
             setCurrentIor(value.ior)
-            setMeshVisible(newIor > 0.01)
         },
 
         delay: blinkTrigger ? 0 : 5000 
