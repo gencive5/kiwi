@@ -183,7 +183,7 @@ return (
             customDepthMaterial={depthMaterial}
             receiveShadow={false}
             position={[0, 8, 0]}
-            scale={[2.7, 1, 1.4]}
+            scale={[2.2, 1, 1.4]}
             visible={meshVisible}
         />
         <Suspense fallback={null}>
