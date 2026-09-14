@@ -155,7 +155,7 @@ export default function Experience({ blinkTrigger, muted }) {
     // BLOB
     const geometry = useMemo(() => {
         const subdivisions = isMobile ? 20 : 50;
-        const size = isMobile ? 7 : 10;
+        const size = isMobile ? 3 : 5;
         let geo = new THREE.IcosahedronGeometry(size, subdivisions);
         geo = mergeVertices(geo)
         geo.computeTangents()
@@ -168,11 +168,11 @@ export default function Experience({ blinkTrigger, muted }) {
         uniforms.uTime.value = state.clock.elapsedTime
     })
     
-    // camera
-    useEffect(() => {
-        camera.position.set(13, -3, -5)
-        camera.lookAt(0, 0, 0)
-    }, [camera])
+    // // camera
+    // useEffect(() => {
+    //     // camera.position.set(13, -3, -5)
+    //     camera.lookAt(0, 0, 0)
+    // }, [camera])
     
 return (
     <> 
@@ -182,8 +182,8 @@ return (
             material={material}
             customDepthMaterial={depthMaterial}
             receiveShadow={false}
-            position={[0, 8, 0]}
-            scale={[2.2, 1, 1.4]}
+            position={[0, 2, 0]}
+            scale={[2.2, 1, 1.7]}
             visible={meshVisible}
         />
         <Suspense fallback={null}>
