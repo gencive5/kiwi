@@ -70,9 +70,8 @@ export default function Experience({ blinkTrigger, muted }) {
     const DEFAULT_COLOR = '#ffffff'
 
     const POSITION_FREQUENCY = 0.50
-    const UTIME_FREQUENCY = 0.46
-    const USTRENGTH = 0.40
-    const CHROMATIC_ABERRATION = 0.10
+    const UTIME_FREQUENCY = 0.31
+    const USTRENGTH = 0.38
 
 
     // Blink
@@ -107,7 +106,6 @@ export default function Experience({ blinkTrigger, muted }) {
         uPositionFrequency: new THREE.Uniform(POSITION_FREQUENCY),
         uTimeFrequency: new THREE.Uniform(UTIME_FREQUENCY),
         uStrength: new THREE.Uniform(USTRENGTH),
-        uChromaticAberration: new THREE.Uniform(CHROMATIC_ABERRATION) 
         }), 
         [])
 
@@ -137,7 +135,6 @@ export default function Experience({ blinkTrigger, muted }) {
         DEFAULT_TRANSMISSION,
         DEFAULT_THICKNESS,
         DEFAULT_COLOR,
-        CHROMATIC_ABERRATION,
         currentIor])  
 
     
@@ -153,7 +150,7 @@ export default function Experience({ blinkTrigger, muted }) {
     
     // BLOB
     const geometry = useMemo(() => {
-        const subdivisions = isMobile ? 20 : 50;
+        const subdivisions = isMobile ? 15 : 50;
         const size = isMobile ? 3 : 5;
         let geo = new THREE.IcosahedronGeometry(size, subdivisions);
         geo = mergeVertices(geo)
@@ -166,6 +163,9 @@ export default function Experience({ blinkTrigger, muted }) {
         // Update time
         uniforms.uTime.value = state.clock.elapsedTime
     })
+
+    const position = isMobile ? [0, 0, 0] : [0, 2, 0];
+    const scale = isMobile ? [1.2, 2, 1] : [2.2, 1, 1.7];
     
     // // camera
     // useEffect(() => {
@@ -181,8 +181,8 @@ return (
             material={material}
             customDepthMaterial={depthMaterial}
             receiveShadow={false}
-            position={[0, 2, 0]}
-            scale={[2.2, 1, 1.7]}
+            position={position}
+            scale={scale}
             visible={meshVisible}
         />
         <Suspense fallback={null}>
