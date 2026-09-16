@@ -1,5 +1,5 @@
 import { useFrame, useThree } from '@react-three/fiber'
-import { useRef, useEffect, useMemo, Suspense } from 'react'
+import { useEffect, useMemo, Suspense } from 'react'
 import * as THREE from 'three'
 import CustomShaderMaterial from 'three-custom-shader-material/vanilla'
 import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js'
@@ -11,9 +11,7 @@ import { useIsMobile } from './IsMobile.jsx'
 
 
 export default function Experience({ blinkTrigger, muted }) {
-   
-    const meshRef = useRef()
-
+  
     const { scene } = useThree()
 
     // mobile detection
@@ -103,12 +101,7 @@ export default function Experience({ blinkTrigger, muted }) {
         metalness: 0.0, 
         })}, 
 
-        [uniforms, 
-        DEFAULT_ROUGHNESS,
-        DEFAULT_TRANSMISSION,
-        DEFAULT_THICKNESS,
-        DEFAULT_COLOR,
-        DEFAULT_IOR])  
+        [uniforms])  
 
     
     const depthMaterial = useMemo(() => {
@@ -164,11 +157,9 @@ export default function Experience({ blinkTrigger, muted }) {
 return (
     <> 
         <mesh
-            ref={meshRef}
             geometry={geometry}
             material={material}
             customDepthMaterial={depthMaterial}
-            receiveShadow={false}
             position={position}
             scale={scale}
         />
