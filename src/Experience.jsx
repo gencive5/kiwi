@@ -1,5 +1,5 @@
 import { useFrame, useThree } from '@react-three/fiber'
-import { useRef, useEffect, useMemo, useState } from 'react'
+import { useRef, useEffect, useMemo, Suspense } from 'react'
 import * as THREE from 'three'
 import CustomShaderMaterial from 'three-custom-shader-material/vanilla'
 import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js'
@@ -7,7 +7,6 @@ import wobbleVertexShader from './shaders/blur/vertex.glsl'
 import wobbleFragmentShader from './shaders/blur/fragment.glsl'
 import { useSpring } from '@react-spring/three'
 import { useVideoTexture, Environment} from '@react-three/drei'
-import { Suspense } from 'react'
 import { useIsMobile } from './IsMobile.jsx'
 
 
@@ -72,32 +71,7 @@ export default function Experience({ blinkTrigger, muted }) {
     const POSITION_FREQUENCY = 0.50
     const UTIME_FREQUENCY = 0.31
     const USTRENGTH = 0.38
-
-
-    // Blink
     const DEFAULT_IOR = 2 
-    const [currentIor, setCurrentIor] = useState(DEFAULT_IOR)
-    const [meshVisible] = useState(true)
-
-  
-    useSpring({
-        ior: blinkTrigger ? 0 : DEFAULT_IOR,
-        config: {
-            duration: blinkTrigger ? 1000 : 7000,
-            easing: t =>  {
-                if (blinkTrigger) { 
-                    return t * t * (3 - 2 * t) 
-                } else {
-                    return t
-                }
-            }
-        },
-        onChange: ({ value }) => {
-            setCurrentIor(value.ior)
-        },
-
-        delay: blinkTrigger ? 0 : 5000 
-    })
 
     
     // uniforms
@@ -123,9 +97,8 @@ export default function Experience({ blinkTrigger, muted }) {
         transmission: DEFAULT_TRANSMISSION,
         thickness: DEFAULT_THICKNESS,
         color: DEFAULT_COLOR,
-        ior: currentIor,
+        ior: DEFAULT_IOR,
         transparent: true,
-        opacity: meshVisible ? 1 : 0,
         side: THREE.DoubleSide,
         metalness: 0.0, 
         })}, 
@@ -135,7 +108,7 @@ export default function Experience({ blinkTrigger, muted }) {
         DEFAULT_TRANSMISSION,
         DEFAULT_THICKNESS,
         DEFAULT_COLOR,
-        currentIor])  
+        DEFAULT_IOR])  
 
     
     const depthMaterial = useMemo(() => {
@@ -166,13 +139,28 @@ export default function Experience({ blinkTrigger, muted }) {
 
     const position = isMobile ? [0, 0, 0] : [0, 2, 0];
     const scale = isMobile ? [1.2, 2, 1] : [2.2, 1, 1.7];
+
+    // Blink
+    useSpring({
+        ior: blinkTrigger ? 0 : DEFAULT_IOR,
+        config: {
+            duration: blinkTrigger ? 1000 : 7000,
+            easing: t =>  {
+                if (blinkTrigger) { 
+                    return t * t * (3 - 2 * t) 
+                } else {
+                    return t
+                }
+            }
+        },
+        onChange: ({ value }) => {
+            if (material) material.ior = value.ior
+        },
+
+        delay: blinkTrigger ? 0 : 5000 
+    })
     
-    // // camera
-    // useEffect(() => {
-    //     // camera.position.set(13, -3, -5)
-    //     camera.lookAt(0, 0, 0)
-    // }, [camera])
-    
+
 return (
     <> 
         <mesh
@@ -183,7 +171,6 @@ return (
             receiveShadow={false}
             position={position}
             scale={scale}
-            visible={meshVisible}
         />
         <Suspense fallback={null}>
         <Environment 
