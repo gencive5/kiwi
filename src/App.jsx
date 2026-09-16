@@ -1,13 +1,13 @@
 import './style.css'
-import { useState } from 'react'
+import { useState, lazy, Suspense  } from 'react'
 import { Canvas } from '@react-three/fiber'
-import Experience from './Experience.jsx'
 import blinkButton from './assets/blinkline.svg'
 import soundButton from './assets/unmute.svg'
 
+const Experience = lazy(()=> import('./Experience.jsx'))
+
 export default function App ()
 {
-
     const [blinkTrigger, setBlinkTrigger] = useState(false)
 
     const handleBlink = () => {
@@ -25,7 +25,9 @@ export default function App ()
             }}
              style={{ position: 'relative', zIndex: 1 }} 
         >
+        <Suspense fallback={null}>
         <Experience blinkTrigger={blinkTrigger} muted={muted} />
+        </Suspense>
     </Canvas>
 
     <div className= "blink-div">
