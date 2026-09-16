@@ -64,7 +64,7 @@ export default function Experience({ blinkTrigger, muted }) {
     const DEFAULT_TRANSMISSION = 1.0
     const DEFAULT_THICKNESS = 0.95
     const DEFAULT_ROUGHNESS = 0.19
-    const DEFAULT_COLOR = '#ffffff'
+    const DEFAULT_COLOR = '#feffff'
 
     const POSITION_FREQUENCY = 0.50
     const UTIME_FREQUENCY = 0.31
