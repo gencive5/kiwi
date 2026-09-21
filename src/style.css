@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'oxygen';
+  src: url('./assets/fonts/oxygen-webfont.woff2') format('woff2');
+  font-display: swap;
+  font-weight: normal;
+  font-style: normal;
+}
+
 html,
 body,
 #root
@@ -21,6 +29,7 @@ body,
     padding: 0;
     text-align: center;
     text-decoration: none;
+    font-family: 'oxygen';
     font-size: 16px;
     cursor: pointer;
     width: 20%;
@@ -66,7 +75,7 @@ body,
     left: 50%;
     transform: translate(-50%, -50%);
     color: #f28978;
-    font-size: 2rem;
+    font-size: 2.2rem;
     letter-spacing: 0.2rem;
     pointer-events: none;
 }
@@ -87,9 +96,12 @@ body,
     background-color: transparent;
     border: none;
     color: #96e333;
-    padding: 15px 32px;
+    padding: 1rem 1rem;
+    margin-left: 1rem;
+    /* padding: 15px 32px; */
     text-align: center;
     text-decoration: none;
+    font-family: 'oxygen';
     font-size: 1rem;
     cursor: pointer;
     position: absolute;
@@ -100,7 +112,7 @@ body,
 
 .sound-svg {
     cursor: pointer;
-    width: 60%;
+    width: 100%;
     z-index: 88;
     position: absolute;
     bottom: 0;
