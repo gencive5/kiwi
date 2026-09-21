@@ -42,5 +42,7 @@ export default function App ()
         <img src={soundButton} alt="Sound" className={`sound-svg ${muted ? '' : 'unmuted'}`}/>
     </button>
 
+    <p className="text-div">je pourrais mourir pour toi</p>
+
     </>
 }
