@@ -67,7 +67,14 @@ body,
     transform: translate(-50%, -50%);
     color: #f28978;
     font-size: 2rem;
+    letter-spacing: 0.2rem;
     pointer-events: none;
+}
+
+@media screen and (max-width: 900px){
+.blink-text {
+    font-size: 1rem;
+}
 }
 
 .blink-div {
