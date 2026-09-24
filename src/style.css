@@ -161,6 +161,7 @@ body,
     text-decoration: none;
     font-family: 'worm';
     font-size: 3rem;
+    font-display: fallback;
     z-index: 888;
     color: #f278f2;
     /* font-size: 6.2rem; */
