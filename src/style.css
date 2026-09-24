@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: 'worm';
-  src: url('./assets/fonts/worm2.woff2') format('woff2');
+  src: url('./assets/fonts/worm3.woff2') format('woff2');
   font-display: swap;
   font-weight: normal;
   font-style: normal;
@@ -157,11 +157,11 @@ body,
 
 .text-div {
     position: relative;
-    bottom: 8rem;
+    bottom: 10rem;
     text-align: center;
     text-decoration: none;
     font-family: 'worm';
-    font-size: 3rem;
+    font-size: 4rem;
     font-display: fallback;
     z-index: 888;
     color: #f278f2;
@@ -171,5 +171,6 @@ body,
 @media screen and (max-width: 900px){
 .text-div {
     font-size: 2rem;
+    bottom: 8rem;
 }
 }
