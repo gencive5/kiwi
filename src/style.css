@@ -106,21 +106,31 @@ body,
     color: #96e333;
     padding: 1rem 1rem;
     margin-left: 1rem;
-    /* padding: 15px 32px; */
+    padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     font-family: 'oxygen';
     font-size: 1rem;
     cursor: pointer;
     position: absolute;
-    top: 0;
+    top: 1rem;
     left: 0;
     z-index: 200;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 6rem;     
+    height: 3rem;
 }
 
 @media screen and (max-width: 900px){
-.sound {
-    font-size: 1rem;
+    .sound-btn {
+    width: 3.5rem;
+    height: 2rem;
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
+    
 }
 }
 
@@ -131,13 +141,15 @@ body,
     z-index: 88;
     position: absolute;
     bottom: 0;
+    top: 50%;
     left: 50%;
-    transform: translate(-50%, 0);
+    width: 100%;
+    transform: translate(-50%, -50%);
     transition: transform 0.2s ease 0s;
 }
 
 .sound-svg.unmuted {
-  transform: translate(-50%, 0) skew(30deg, 20deg);
+  transform: translate(-50%, -50%) skew(30deg, 20deg);
   transition: transform 0.1s ease 0s;  
 }
 
