@@ -7,8 +7,8 @@
 }
 
 @font-face {
-  font-family: 'worm';
-  src: url('./assets/fonts/worm3.woff2') format('woff2');
+  font-family: 'wormita';
+  src: url('./assets/fonts/wormita.woff2') format('woff2');
   font-display: swap;
   font-weight: normal;
   font-style: normal;
@@ -27,7 +27,7 @@ body,
     background-color: transparent;
     background-image: url("/walkframe.jpg");
     background-size: 100% 100%;
-    font-family: 'worm', Arial, sans-serif;
+    font-family: 'wormita', Arial, sans-serif;
 }
 
 .blink-btn {
@@ -160,7 +160,7 @@ body,
     bottom: 10rem;
     text-align: center;
     text-decoration: none;
-    font-family: 'worm';
+    font-family: 'wormita';
     font-size: 4rem;
     font-display: fallback;
     z-index: 888;
@@ -172,4 +172,19 @@ body,
     font-size: 2rem;
     bottom: 8rem;
 }
+}
+
+.font-link {
+    position: relative;
+    bottom: 22rem;
+    text-align: center;
+    text-decoration: underline;
+    font-family: 'oxygen';
+    font-size: 0.8rem;
+    font-display: fallback;
+    z-index: 888;
+    color: #f278f2;
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+
 }
