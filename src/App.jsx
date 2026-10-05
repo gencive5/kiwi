@@ -30,12 +30,10 @@ export default function App ()
         </Suspense>
     </Canvas>
 
-    <div className= "blink-div">
         <button className= "blink-btn" onClick={handleBlink}>
             <img src={blinkButton} alt="Blink" className='blink-svg'/>
              <span className="blink-text">blink</span>
         </button>
-     </div>
      
     <button onClick={handleToggleMute} className="sound-btn">
         {muted ? "unmute" : "mute"}
