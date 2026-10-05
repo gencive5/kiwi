@@ -175,8 +175,9 @@ body,
 }
 
 .font-link {
-    position: relative;
-    bottom: 22rem;
+    position: absolute;
+    bottom: 2rem;
+    right: 0;
     text-align: center;
     text-decoration: underline;
     font-family: 'oxygen';
@@ -186,5 +187,12 @@ body,
     color: #f278f2;
     writing-mode: vertical-lr;
     text-orientation: mixed;
+    transform: rotate(180deg);
+}
 
+@media screen and (max-width: 900px){
+.font-link {
+    font-size: 0.4rem;
+    /* bottom: 4rem; */
+}
 }
