@@ -1,7 +1,7 @@
 import './style.css'
 import { useState, lazy, Suspense  } from 'react'
 import { Canvas } from '@react-three/fiber'
-import blinkButton from './assets/blinkuplashes.svg'
+import blinkButton from './assets/blinkok.svg'
 import soundButton from './assets/unmute.svg'
 
 const Experience = lazy(()=> import('./Experience.jsx'))
