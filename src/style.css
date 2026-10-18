@@ -51,6 +51,7 @@ body,
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    opacity: 0;
 }
 
 @media screen and (max-width: 900px){
@@ -128,6 +129,7 @@ body,
     height: 2rem;
     font-size: 0.8rem;
     margin-left: 0.5rem;
+    opacity: 0;
 }
 }
 
@@ -143,6 +145,7 @@ body,
     width: 100%;
     transform: translate(-50%, -50%);
     transition: transform 0.2s ease 0s;
+   
 }
 
 .sound-svg.unmuted {
@@ -161,6 +164,7 @@ body,
     font-display: fallback;
     z-index: 888;
     color: #f278f2;
+    opacity: 0;
 }
 
 @media screen and (max-width: 900px){
@@ -168,6 +172,18 @@ body,
     font-size: 2rem;
     bottom: 8rem;
 }
+}
+
+.text-ad{
+    position: relative;
+    bottom: 15rem;
+    text-align: center;
+    text-decoration: none;
+    font-family: 'wormita';
+    font-size: 4rem;
+    font-display: fallback;
+    z-index: 888;
+    color: #f278f2;
 }
 
 .font-link {
@@ -184,6 +200,7 @@ body,
     writing-mode: vertical-lr;
     text-orientation: mixed;
     transform: rotate(180deg);
+     opacity: 0;
 }
 
 @media screen and (max-width: 900px){

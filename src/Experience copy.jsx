@@ -1,178 +1,210 @@
-import { useFrame, useThree, extend } from '@react-three/fiber'
-import { useRef, useEffect, useMemo, useState } from 'react'
+import { useFrame, useThree } from '@react-three/fiber'
+import { useEffect, useMemo, Suspense } from 'react'
 import * as THREE from 'three'
-import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js'
 import CustomShaderMaterial from 'three-custom-shader-material/vanilla'
+import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js'
 import wobbleVertexShader from './shaders/blur/vertex.glsl'
 import wobbleFragmentShader from './shaders/blur/fragment.glsl'
-import video from '/walkkk.mp4'
-import { useSpring, animated } from '@react-spring/three'
-import { useVideoTexture} from '@react-three/drei'
-
+import { useSpring } from '@react-spring/three'
+import { useVideoTexture, Environment } from '@react-three/drei'
+import { useIsMobile } from './IsMobile.jsx'
 
 export default function Experience({ blinkTrigger, muted }) {
-   
-    const meshRef = useRef()
+  const { scene } = useThree()
 
-    const { scene, camera, gl, size, viewport } = useThree()
+  // mobile detection
+  const isMobile = useIsMobile()
 
-    // video
-    const videoTexture = useVideoTexture('/walkkk.mp4', {
-        muted: muted,
-        loop: true,   
-        playsInline: true,
-    })
+  // video
+  const videoTexture = useVideoTexture('roseok.mp4', {
+    muted: muted,
+    loop: true,
+    playsInline: true,
+    crossOrigin: 'anonymous',
+    start: false,
+  })
 
-    useEffect(() => {
+  // preload video
+  useEffect(() => {
     if (videoTexture) {
-        scene.background = videoTexture
-    }
-     return () => {
-        if (scene.background === videoTexture) {
-            scene.background = null
-        }
-    }
-    }, [videoTexture, scene])
-
-    useEffect(() => {
-        if (videoTexture) {
-            const video = videoTexture.image
-            if (video) {
-                video.muted = muted
-            }
-        }
-    }, [muted])
-
-
-    // Material parameters
-    const DEFAULT_TRANSMISSION = 0.95
-    const DEFAULT_THICKNESS = 0.65
-    const DEFAULT_ROUGHNESS = 0.10
-    const DEFAULT_COLOR = '#ffffff'
-
-    const POSITION_FREQUENCY = 0.50
-    const UTIME_FREQUENCY = 0.46
-    const USTRENGTH = 0.30
-
-
-    // Blink
-    const DEFAULT_IOR = 2 
-    const [currentIor, setCurrentIor] = useState(DEFAULT_IOR)
-    const [meshVisible, setMeshVisible] = useState(true)
-
-  
-    const { ior } = useSpring({
-        ior: blinkTrigger ? 0 : DEFAULT_IOR,
-        config: {
-            duration: blinkTrigger ? 1000 : 7000,
-            easing: t =>  {
-                if (blinkTrigger) { 
-                    return t * t * (3 - 2 * t) 
-                } else {
-                    return t
-                }
-            }
-        },
-        onChange: ({ value }) => {
-            setCurrentIor(value.ior)
-            setMeshVisible(newIor > 0.01)
-        },
-
-        delay: blinkTrigger ? 0 : 5000 
-    })
-
-    
-    // uniforms
-    const uniforms = useMemo(() => ({
-        uTime: new THREE.Uniform(0),
-        uPositionFrequency: new THREE.Uniform(POSITION_FREQUENCY),
-        uTimeFrequency: new THREE.Uniform(UTIME_FREQUENCY),
-        uStrength: new THREE.Uniform(USTRENGTH)
-        }), 
-        [])
-
-
-    // materials
-    const material = useMemo(() => {
-        return new CustomShaderMaterial({
-            baseMaterial: THREE.MeshPhysicalMaterial,
-            vertexShader: wobbleVertexShader,
-            fragmentShader: wobbleFragmentShader,
-            uniforms: uniforms,
-        
-        // MeshPhysicalMaterial properties
-        roughness: DEFAULT_ROUGHNESS,
-        transmission: DEFAULT_TRANSMISSION,
-        thickness: DEFAULT_THICKNESS,
-        color: DEFAULT_COLOR,
-        ior: currentIor,
-        transparent: true,
-        opacity: meshVisible ? 1 : 0,
-        side: THREE.DoubleSide,
-        })}, 
-
-        [uniforms, 
-        DEFAULT_ROUGHNESS,
-        DEFAULT_TRANSMISSION,
-        DEFAULT_THICKNESS,
-        DEFAULT_COLOR,
-        currentIor])  
-
-    
-    const depthMaterial = useMemo(() => {
-        return new CustomShaderMaterial({
-            baseMaterial: THREE.MeshDepthMaterial,
-            vertexShader: wobbleVertexShader,
-            uniforms: uniforms,
-            depthPacking: THREE.RGBADepthPacking
+      const video = videoTexture.image
+      if (video) {
+        video.load()
+        video.addEventListener('loadeddata', () => {
+          video.play()
         })
-    }, [uniforms])
-    
-    
-    // BLOB
-    const geometry = useMemo(() => {
-        let geo = new THREE.IcosahedronGeometry(5, 50)
-        geo = mergeVertices(geo)
-        geo.computeTangents()
-        return geo
-    }, [])
-    
-    // Animation
-    useFrame((state, delta) => {
-        // Update time
-        uniforms.uTime.value = state.clock.elapsedTime
-    })
-    
-    // camera
-    useEffect(() => {
-        camera.position.set(13, -3, -5)
-        camera.lookAt(0, 0, 0)
-    }, [camera])
-    
-return (
-    <>
-{/*         
-        <directionalLight
-            color="#ffffff"
-            intensity={3}
-            position={[0.25, 2, -2.25]}
-            castShadow
-            shadow-mapSize={[1024, 1024]}
-            shadow-camera-far={15}
-            shadow-normalBias={0.05}
-        /> */}
-        
-        <mesh
-            ref={meshRef}
-            geometry={geometry}
-            material={material}
-            customDepthMaterial={depthMaterial}
-            receiveShadow
-            position={[0, 0, 0]}
-            visible={meshVisible}
-        />
+      }
+    }
+  }, [videoTexture])
 
-        <ambientLight intensity={0.5} />
+  // set as scene background
+  useEffect(() => {
+    if (videoTexture) {
+      scene.background = videoTexture
+    }
+    return () => {
+      if (scene.background === videoTexture) {
+        scene.background = null
+      }
+    }
+  }, [videoTexture, scene])
+
+  // keep video aspect ratio (background-size: cover)
+  useEffect(() => {
+    if (!videoTexture) return
+
+    const video = videoTexture.image
+    if (!video) return
+
+    videoTexture.colorSpace = THREE.SRGBColorSpace
+    videoTexture.matrixAutoUpdate = false
+
+    const updateAspect = () => {
+      if (!video.videoWidth || !video.videoHeight) return
+
+      const videoAspect = video.videoWidth / video.videoHeight
+      const screenAspect = window.innerWidth / window.innerHeight
+
+      if (screenAspect > videoAspect) {
+        // Screen is wider than video → fit width, crop top/bottom
+        const s = videoAspect / screenAspect
+        videoTexture.repeat.set(1, s)
+        videoTexture.offset.set(0, (1 - s) / 2)
+      } else {
+        // Screen is taller than video → fit height, crop left/right
+        const s = screenAspect / videoAspect
+        videoTexture.repeat.set(s, 1)
+        videoTexture.offset.set((1 - s) / 2, 0)
+      }
+
+      videoTexture.updateMatrix()
+    }
+
+    // video metadata may not be loaded yet
+    if (video.readyState >= 1) {
+      updateAspect()
+    } else {
+      video.addEventListener('loadedmetadata', updateAspect)
+    }
+
+    window.addEventListener('resize', updateAspect)
+
+    return () => {
+      video.removeEventListener('loadedmetadata', updateAspect)
+      window.removeEventListener('resize', updateAspect)
+    }
+  }, [videoTexture])
+
+  // mute toggle
+  useEffect(() => {
+    if (videoTexture) {
+      const video = videoTexture.image
+      if (video) {
+        video.muted = muted
+      }
+    }
+  }, [muted])
+
+  // Material parameters
+  const DEFAULT_TRANSMISSION = 1.0
+  const DEFAULT_THICKNESS = 0.95
+  const DEFAULT_ROUGHNESS = 0.19
+  const DEFAULT_COLOR = '#feffff'
+
+  const POSITION_FREQUENCY = 0.5
+  const UTIME_FREQUENCY = 0.31
+  const USTRENGTH = 0.38
+  const DEFAULT_IOR = 2
+
+  // uniforms
+  const uniforms = useMemo(
+    () => ({
+      uTime: new THREE.Uniform(0),
+      uPositionFrequency: new THREE.Uniform(POSITION_FREQUENCY),
+      uTimeFrequency: new THREE.Uniform(UTIME_FREQUENCY),
+      uStrength: new THREE.Uniform(USTRENGTH),
+    }),
+    []
+  )
+
+  // materials
+  const material = useMemo(() => {
+    return new CustomShaderMaterial({
+      baseMaterial: THREE.MeshPhysicalMaterial,
+      vertexShader: wobbleVertexShader,
+      fragmentShader: wobbleFragmentShader,
+      uniforms: uniforms,
+
+      // MeshPhysicalMaterial properties
+      roughness: DEFAULT_ROUGHNESS,
+      transmission: DEFAULT_TRANSMISSION,
+      thickness: DEFAULT_THICKNESS,
+      color: DEFAULT_COLOR,
+      ior: DEFAULT_IOR,
+      transparent: true,
+      side: THREE.DoubleSide,
+      metalness: 0.0,
+    })
+  }, [uniforms])
+
+  const depthMaterial = useMemo(() => {
+    return new CustomShaderMaterial({
+      baseMaterial: THREE.MeshDepthMaterial,
+      vertexShader: wobbleVertexShader,
+      uniforms: uniforms,
+      depthPacking: THREE.RGBADepthPacking,
+    })
+  }, [uniforms])
+
+  // BLOB
+  const geometry = useMemo(() => {
+    const subdivisions = isMobile ? 15 : 50
+    const size = isMobile ? 3 : 5
+    let geo = new THREE.IcosahedronGeometry(size, subdivisions)
+    geo = mergeVertices(geo)
+    geo.computeTangents()
+    return geo
+  }, [isMobile])
+
+  // Animation
+  useFrame((state) => {
+    uniforms.uTime.value = state.clock.elapsedTime
+  })
+
+  const position = isMobile ? [0, 0, 0] : [0, 2, 0]
+  const scale = isMobile ? [1.2, 2, 1] : [2.2, 1, 1.7]
+
+  // Blink
+  useSpring({
+    ior: blinkTrigger ? 0 : DEFAULT_IOR,
+    config: {
+      duration: blinkTrigger ? 1000 : 7000,
+      easing: (t) => {
+        if (blinkTrigger) {
+          return t * t * (3 - 2 * t)
+        } else {
+          return t
+        }
+      },
+    },
+    onChange: ({ value }) => {
+      if (material) material.ior = value.ior
+    },
+    delay: blinkTrigger ? 0 : 5000,
+  })
+
+  return (
+    <>
+      <mesh
+        geometry={geometry}
+        material={material}
+        customDepthMaterial={depthMaterial}
+        position={position}
+        scale={scale}
+      />
+      <Suspense fallback={null}>
+        <Environment files="./lilienstein_1k.hdr" background={false} />
+      </Suspense>
     </>
-)
+  )
 }

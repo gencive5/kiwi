@@ -4,7 +4,7 @@ import { Canvas } from '@react-three/fiber'
 import blinkButton from './assets/blinkok.svg'
 import soundButton from './assets/unmute.svg'
 
-const Experience = lazy(()=> import('./Experience.jsx'))
+const Experience = lazy(()=> import('./Experience copy.jsx'))
 
 export default function App ()
 {
@@ -41,6 +41,8 @@ export default function App ()
     </button>
 
     <p className="text-div">je pourrais mourir pour toi</p>
+
+    <p className="text-ad">espabilate</p>
 
     <a className="font-link" href="/Wormita.zip" download>download Wormita font</a>
 
