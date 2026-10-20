@@ -42,7 +42,7 @@ export default function App ()
 
     <p className="text-div">je pourrais mourir pour toi</p>
 
-    <p className="text-ad">wormita</p>
+    <p className="text-ad">animo carcerato</p>
 
     <a className="font-link" href="/Wormita.zip" download>download Wormita font</a>
 
