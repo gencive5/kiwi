@@ -176,11 +176,11 @@ body,
 
 .text-ad{
     position: relative;
-    bottom: 30rem;
+    bottom: 26rem;
     text-align: center;
     text-decoration: none;
     font-family: 'wormita';
-    font-size: 12rem;
+    font-size: 9.5rem;
     font-display: fallback;
     z-index: 888;
     color: #f278f2;
