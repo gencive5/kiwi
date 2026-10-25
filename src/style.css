@@ -55,7 +55,7 @@ body,
 
 @media screen and (max-width: 900px){
 .blink-btn {
-    width: 55%;
+    width: 52%;
     bottom: -1rem;
 }
 }
@@ -166,7 +166,7 @@ body,
 @media screen and (max-width: 900px){
 .text-div {
     font-size: 3rem;
-    bottom: 10rem;
+    bottom: 11rem;
 }
 }
 
