@@ -55,7 +55,7 @@ body,
 
 @media screen and (max-width: 900px){
 .blink-btn {
-    width: 50%;
+    width: 55%;
     bottom: -1rem;
 }
 }
@@ -85,7 +85,7 @@ body,
     left: 50%;
     transform: translate(-50%, -50%);
     color: #f28978;
-    font-size: 2.2rem;
+    font-size: 2.3rem;
     letter-spacing: 0.2rem;
     pointer-events: none;
 }
@@ -153,11 +153,11 @@ body,
 
 .text-div {
     position: relative;
-    bottom: 10rem;
+    bottom: 11rem;
     text-align: center;
     text-decoration: none;
     font-family: 'wormita';
-    font-size: 4rem;
+    font-size: 5rem;
     font-display: fallback;
     z-index: 888;
     color: #f278f2;
@@ -165,8 +165,8 @@ body,
 
 @media screen and (max-width: 900px){
 .text-div {
-    font-size: 2rem;
-    bottom: 8rem;
+    font-size: 3rem;
+    bottom: 10rem;
 }
 }
 
@@ -189,7 +189,7 @@ body,
 
 @media screen and (max-width: 900px){
 .font-link {
-    font-size: 0.4rem;
+    font-size: 0.5rem;
     /* bottom: 4rem; */
 }
 }
