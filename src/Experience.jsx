@@ -28,32 +28,14 @@ export default function Experience({ blinkTrigger, muted }) {
 
     // preload video
     useEffect(() => {
-    if (!videoTexture) return
-    const video = videoTexture.image
-    if (!video) return
-
-    const onLoaded = () => {
-        video.play().catch((err) => {
-            console.log('play failed:', err.name, err.message)
-        })
-    }
-
-    const onError = () => {
-        console.log('video error:', video.error?.code, video.error?.message)
-    }
-
-    video.addEventListener('loadeddata', onLoaded)
-    video.addEventListener('error', onError)
-
-    video.muted = true
-    video.playsInline = true
-    video.setAttribute('playsinline', '')
-
-    video.load()
-
-    return () => {
-        video.removeEventListener('loadeddata', onLoaded)
-        video.removeEventListener('error', onError)
+    if (videoTexture) {
+        const video = videoTexture.image
+        if (video) {
+            video.load()
+            video.addEventListener('loadeddata', () => {
+                video.play()
+            })
+        }
     }
     }, [videoTexture])
 
@@ -114,12 +96,14 @@ export default function Experience({ blinkTrigger, muted }) {
         thickness: DEFAULT_THICKNESS,
         color: DEFAULT_COLOR,
         ior: DEFAULT_IOR,
+        transparent: true,
         side: THREE.DoubleSide,
         metalness: 0.0, 
         })}, 
 
         [uniforms])  
-    
+
+
     
     // BLOB
     const geometry = useMemo(() => {
