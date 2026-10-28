@@ -23,19 +23,21 @@ export default function Experience({ blinkTrigger, muted }) {
         loop: true,   
         playsInline: true,
         crossOrigin: 'anonymous',
-        start: true,
+        start: false,
     })
 
+    // preload video
     useEffect(() => {
-    const video = videoTexture?.image
-    if (!video) return
-    const tryPlay = () => video.play().catch(() => {})
-    tryPlay()
-    // fallback if autoplay was blocked: retry on first touch
-    window.addEventListener('pointerdown', tryPlay, { once: true })
-    return () => window.removeEventListener('pointerdown', tryPlay)
+    if (videoTexture) {
+        const video = videoTexture.image
+        if (video) {
+            video.load()
+            video.addEventListener('loadeddata', () => {
+                video.play()
+            })
+        }
+    }
     }, [videoTexture])
-    
 
     useEffect(() => {
     if (videoTexture) {
