@@ -27,7 +27,7 @@ export default function Experience({ blinkTrigger, muted }) {
     })
 
     // preload video
-useEffect(() => {
+    useEffect(() => {
     if (!videoTexture) return
     const video = videoTexture.image
     if (!video) return
@@ -44,13 +44,18 @@ useEffect(() => {
 
     video.addEventListener('loadeddata', onLoaded)
     video.addEventListener('error', onError)
+
+    video.muted = true
+    video.playsInline = true
+    video.setAttribute('playsinline', '')
+
     video.load()
 
     return () => {
         video.removeEventListener('loadeddata', onLoaded)
         video.removeEventListener('error', onError)
     }
-}, [videoTexture])
+    }, [videoTexture])
 
     useEffect(() => {
     if (videoTexture) {
