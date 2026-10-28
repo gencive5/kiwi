@@ -27,17 +27,30 @@ export default function Experience({ blinkTrigger, muted }) {
     })
 
     // preload video
-    useEffect(() => {
-    if (videoTexture) {
-        const video = videoTexture.image
-        if (video) {
-            video.load()
-            video.addEventListener('loadeddata', () => {
-                video.play()
-            })
-        }
+useEffect(() => {
+    if (!videoTexture) return
+    const video = videoTexture.image
+    if (!video) return
+
+    const onLoaded = () => {
+        video.play().catch((err) => {
+            console.log('play failed:', err.name, err.message)
+        })
     }
-    }, [videoTexture])
+
+    const onError = () => {
+        console.log('video error:', video.error?.code, video.error?.message)
+    }
+
+    video.addEventListener('loadeddata', onLoaded)
+    video.addEventListener('error', onError)
+    video.load()
+
+    return () => {
+        video.removeEventListener('loadeddata', onLoaded)
+        video.removeEventListener('error', onError)
+    }
+}, [videoTexture])
 
     useEffect(() => {
     if (videoTexture) {
