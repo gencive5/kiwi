@@ -96,27 +96,16 @@ export default function Experience({ blinkTrigger, muted }) {
         thickness: DEFAULT_THICKNESS,
         color: DEFAULT_COLOR,
         ior: DEFAULT_IOR,
-        transparent: true,
         side: THREE.DoubleSide,
         metalness: 0.0, 
         })}, 
 
         [uniforms])  
-
-    
-    const depthMaterial = useMemo(() => {
-        return new CustomShaderMaterial({
-            baseMaterial: THREE.MeshDepthMaterial,
-            vertexShader: wobbleVertexShader,
-            uniforms: uniforms,
-            depthPacking: THREE.RGBADepthPacking
-        })
-    }, [uniforms])
     
     
     // BLOB
     const geometry = useMemo(() => {
-        const subdivisions = isMobile ? 15 : 50;
+        const subdivisions = isMobile ? 12 : 50;
         const size = isMobile ? 3 : 5;
         let geo = new THREE.IcosahedronGeometry(size, subdivisions);
         geo = mergeVertices(geo)
@@ -159,7 +148,6 @@ return (
         <mesh
             geometry={geometry}
             material={material}
-            customDepthMaterial={depthMaterial}
             position={position}
             scale={scale}
         />
